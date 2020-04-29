@@ -45,10 +45,9 @@ if __name__ == '__main__':
 	arr= list(x.values())
 	print(arr)
 	mergeSort(arr) 
+
 	print("Sorted array is: ", end="\n") 
 	printList(arr) 
-
-
 
 
 
