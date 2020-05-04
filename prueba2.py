@@ -6,7 +6,7 @@ k = 2 #Número de escenas por parte
 animales = {'ciempies':1, 'libelula':2, 'gato':3, 'perro':4, 'tapir':5, 'nutria':6} # Animales {nombre:grandeza}
 
 
-
+#(m-1)*k
 apertura = [
 ['tapir', 'nutria', 'perro'],
 ['tapir', 'perro', 'gato'], 
@@ -14,16 +14,15 @@ apertura = [
 ['gato', 'ciempies', 'libelula']
 ]
 
-apertura_valores = []
-i = 0
-for j in range(len(apertura)):
-	for x in apertura[i]:
-		if x in animales:
-			print(animales[x])
-			apertura_valores.append(animales[x])
-	i += 1
 
-print("--------------------")
-print(apertura_valores)
 #double_dict1 = {k:v*2 for (k,v) in animales.items()}
 #print(double_dict1)
+arr=[[],[],[],[]]#necesita generarse automáticamente (m-1)*k
+i=0
+for q in range(len(apertura)):
+	for p in apertura[q]:
+		if p in animales:
+			arr[i].append(animales[p])
+	i+=1
+print(arr)
+
