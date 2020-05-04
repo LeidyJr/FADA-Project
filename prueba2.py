@@ -15,8 +15,7 @@ apertura = [
 ]
 
 
-#double_dict1 = {k:v*2 for (k,v) in animales.items()}
-#print(double_dict1)
+#Paso 1: Obtener un arreglo con los respectivos valores
 arr=[[],[],[],[]]#necesita generarse automáticamente (m-1)*k
 i=0
 for q in range(len(apertura)):
@@ -25,4 +24,18 @@ for q in range(len(apertura)):
 			arr[i].append(animales[p])
 	i+=1
 print(arr)
+#Paso 2: Ordenar los sub arreglos internamente
 
+for i in arr:
+	i.sort()# inserte algoritmo de ordenamiento
+
+print(arr)
+
+#Paso 3: Ordenar los sub arreglos 
+nume=0
+sumas=[]
+for i in arr:
+	for m in i:
+			nume += m
+	print(i)    
+	print(nume)
