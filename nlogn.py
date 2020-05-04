@@ -1,4 +1,5 @@
 
+
 # Python program for implementation of MergeSort 
 def mergeSort(arr):
     if len(arr) >1: 
@@ -42,10 +43,23 @@ def printList(arr):
 def Change(parts):
 
     aperturagrandeza = [[Zoo.get(p)  for p in apertura[q]] for q in range(len(parts))]
+
+    aperturagrandeza2 = [ sum(q) for q in aperturagrandeza]
+    
+    diccionario = (dict(zip(aperturagrandeza2, aperturagrandeza)))
+
+    siguie = sorted(diccionario.items())
+
+    for x in range(len(aperturagrandeza2)):
+        mergeSort(aperturagrandeza2)
+    print(aperturagrandeza2)
     
     for x in range(len(aperturagrandeza)):
-        mergeSort(aperturagrandeza[x]);
-    print(aperturagrandeza);
+        mergeSort(siguie[x][1])
+
+    newlist = [siguie[p][1] for p in range(len(siguie))]
+
+    print(newlist)
 
 
 
