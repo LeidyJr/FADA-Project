@@ -44,23 +44,26 @@ def Change(parts):
 
     aperturagrandeza = [[Zoo.get(p)  for p in apertura[q]] for q in range(len(parts))]
 
-    aperturagrandeza2 = [ sum(q) for q in aperturagrandeza]
+    Tamañoporescena = [ sum(q) for q in aperturagrandeza]
     
-    diccionario = (dict(zip(aperturagrandeza2, aperturagrandeza)))
+    diccionario = (dict(zip(Tamañoporescena, aperturagrandeza)))
 
-    siguie = sorted(diccionario.items())
+    listdict = list(diccionario.items())
+    print(listdict)
 
-    for x in range(len(aperturagrandeza2)):
-        mergeSort(aperturagrandeza2)
-    print(aperturagrandeza2)
-    
-    for x in range(len(aperturagrandeza)):
-        mergeSort(siguie[x][1])
+    for x in range(len(listdict)):
+        mergeSort(listdict[x][1])
+    print(listdict)
 
-    newlist = [siguie[p][1] for p in range(len(siguie))]
+    for x in range(len(listdict)):
+        mergeSort(listdict)
+    print(listdict)
+
+    newlist = [listdict[p][1] for p in range(len(listdict))]
 
     print(newlist)
-
+    
+   
 
 
 # driver code to test the above code 
@@ -84,5 +87,6 @@ if __name__ == '__main__':
     #mergeSort(arr) 
     #print("Sorted array is: ", end="\n") 
     #printList(apertura) 
+  
   
 # This code is contributed by Mayank Khanna 
