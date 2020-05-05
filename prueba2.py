@@ -19,10 +19,25 @@ def insertionSort(arr):
 def Valores(parts):
 
     aperturagrandeza = [[animales.get(p)  for p in apertura[q]] for q in range(len(parts))]
-    
+    sumasgrandeza = [ sum(q) for q in aperturagrandeza]
+    diccionario = (dict(zip(sumasgrandeza, aperturagrandeza)))
+
+    siguie = sorted(diccionario.items())
+
+    for x in range(len(sumasgrandeza)):
+        insertionSort(sumasgrandeza)
+    print(sumasgrandeza)
+
     for x in range(len(aperturagrandeza)):
         insertionSort(aperturagrandeza[x]);
     print(aperturagrandeza);
+
+    for x in range(len(aperturagrandeza)):
+        insertionSort(siguie[x][1])
+
+    newlist = [siguie[p][1] for p in range(len(siguie))]
+
+    print(newlist)
 
 
 # driver code to test the above code 
