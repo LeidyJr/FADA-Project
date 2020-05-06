@@ -62,9 +62,65 @@ def TamañoEscenarios(arr):
                 tamaño +=DiccionarioZoo.get(arr[k][j])
     
     return tamaño
-   
-    
 
+def countSort(arr): 
+
+    arr = [DiccionarioZoo.get(p)  for q in range(len(arr)) for p in arr[q] ]
+
+    size = n
+    output = [0] * size
+
+
+    # Initialize count array
+    count = [0] * len(arr)
+    # Store the count of each elements in count array
+
+    for i in range(len(arr)):
+        output[arr[i]-1]+=1 
+    
+    print(output)
+    minimun(output)
+    maximun(output)
+
+def minimun(arr):
+    mini = arr[0]
+    arreglo = []
+    j = 0
+    for i in range(1,len(arr)):
+        if mini > arr[i]:
+            mini = arr[i]
+            arreglo.clear
+            arreglo.append(i)
+        else:
+            if mini == arr[i]:
+                arreglo.append(i)
+
+    print("los animales que menos participaro fueron ")
+    
+    for i in range(len(arreglo)):
+        print(str(Zoo2.get(arreglo[i]+1)))
+    
+    print("en "+str(mini)+" escenarios" )
+
+def maximun(arr):
+    maxi = arr[0]
+    arreglo = []
+    j = 0
+    for i in range(1,len(arr)):
+        if maxi < arr[i]:
+            maxi = arr[i]
+            arreglo.clear
+            arreglo.append(i)
+        else:
+            if maxi == arr[i]:
+                arreglo.append(i)
+    print(arreglo)
+    print("los animales que mas participaro fueron ")
+    
+    for i in range(len(arreglo)):
+        print(str(Zoo2.get(arreglo[i]+1)))
+    
+    print("en "+str(maxi)+" escenarios" )
     # driver code to test the above code 
 if __name__ == '__main__': 
     n = 6
@@ -75,6 +131,7 @@ if __name__ == '__main__':
     grandezas = [3, 2, 1, 6, 4, 5];
 
     DiccionarioZoo= {'Gato': 3, 'Libelula': 2, 'Ciempies': 1, 'Nutria': 6, 'Perro': 4, 'Tapir':5}
+    
     Zoo2 = {3:'Gato',  2:'Libelula', 1:'Ciempies', 6:'Nutria', 4:'Perro', 5:'Tapir'}
 
     ##OrdenGA = Orden(animales,grandezas)
@@ -108,3 +165,8 @@ if __name__ == '__main__':
     print('apertura ' + str(apertura))
     for i in range(0,m-1):
         print('Parte '+str(i+1)+ str(parts[i]))
+    
+    apertura.extend(parte1)
+    apertura.extend(parte2)
+    
+    print(countSort(apertura))
