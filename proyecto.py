@@ -43,7 +43,34 @@ def organizarEscena(escenaIn, n):
         arrayOcurrencias[arrayConteo[i]-1] = arrayOcurrencias[arrayConteo[i]-1]+1
         grandezaEscena += arrayConteo[i]
     #return grandezaEscena, maxIn, minIn
+def OrganizarEscenarios(arr,n):
+    i = 0
+    j = 1
+    for i in range(len(arr)):
+        ordenar(arr,i,j)
+        j +=1
 
+def ordenar(arr,p,q):
+
+    mini = tamañoescenario(arr[p])
+    escen = arr[p]
+    for i in range(q,len(arr)):
+       
+        if mini > tamañoescenario(arr[i]):
+            arr[p] = arr[i]
+            arr[i] = escen
+            escen = arr[p]
+            mini = tamañoescenario(arr[i])
+
+
+#def maximun():
+
+def tamañoescenario(arr):
+    tamaño = 0
+    
+    for j in range(0,k):
+        tamaño +=animales.get(arr[j])
+    return tamaño
 proba = (1,2)
 
 arrayU = [1,1,1]
