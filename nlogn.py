@@ -1,16 +1,14 @@
-
-# Python program for implementation of MergeSort 
+# 
 def mergeSort(arr): 
     if len(arr) >1: 
-        mid = len(arr)//2 #Finding the mid of the array 
-        L = arr[:mid] # Dividing the array elements  
-        R = arr[mid:] # into 2 halves 
-        mergeSort(L) # Sorting the first half 
-        mergeSort(R) # Sorting the second half 
+        mid = len(arr)//2  
+        L = arr[:mid] 
+        R = arr[mid:] 
+        mergeSort(L)
+        mergeSort(R)
   
         i = j = k = 0
           
-        # Copy data to temp arrays L[] and R[] 
         while i < len(L) and j < len(R): 
             if TamañoEscenarios(L[i]) < TamañoEscenarios(R[j]): 
                 arr[k] = L[i] 
@@ -20,7 +18,6 @@ def mergeSort(arr):
                 j+=1
             k+=1
           
-        # Checking if any element was left 
         while i < len(L): 
             arr[k] = L[i] 
             i+=1
@@ -31,7 +28,6 @@ def mergeSort(arr):
             j+=1
             k+=1
   
-# Code to print the list 
 def  OrganizarEscenarios(arr,low,high): 
 
     if DiccionarioZoo.get(arr[low]) < DiccionarioZoo.get(arr[high]):
@@ -52,16 +48,46 @@ def  OrganizarEscenarios(arr,low,high):
     
 
 def TamañoEscenarios(arr):
-    tamaño = 0;
+    tamaño = 0
+    global promedio
     try:
         for j in range(0,2):
             tamaño +=DiccionarioZoo.get(arr[j])
+        GrandezaMaxEscena(tamaño,arr)
+        GrandezaMinEscena(tamaño,arr)
     except:
         for k in range(len(arr)):
             for j in range(0,2):
                 tamaño +=DiccionarioZoo.get(arr[k][j])
-    
+            GrandezaMaxEscena(tamaño,arr[k])
+            GrandezaMinEscena(tamaño,arr[k])
     return tamaño
+
+def GrandezaMaxEscena(tamaño,arr):
+    global maxEsc
+    if tamaño > maxEsc:
+        maxEsc = tamaño
+        maxEscArr.clear()
+        maxEscArr.append(arr)
+
+def GrandezaMinEscena(tamaño,arr):
+    global minEsc
+    
+    if minEsc == 0:
+        minEsc = tamaño
+    
+    if minEsc > tamaño:
+        minEsc = tamaño
+        minEscArr.clear()
+        minEscArr.append(arr)
+
+def promedioapertura(arr):
+    tamaño = 0
+    global promedio
+    for j in range(0,3):
+        tamaño +=DiccionarioZoo.get(arr[j])
+    promedio = promedio + tamaño
+
 
 def countSort(arr): 
 
@@ -71,14 +97,13 @@ def countSort(arr):
     output = [0] * size
 
 
-    # Initialize count array
     count = [0] * len(arr)
-    # Store the count of each elements in count array
+
 
     for i in range(len(arr)):
         output[arr[i]-1]+=1 
+
     
-    print(output)
     minimun(output)
     maximun(output)
 
@@ -114,18 +139,25 @@ def maximun(arr):
         else:
             if maxi == arr[i]:
                 arreglo.append(i)
-    print(arreglo)
     print("los animales que mas participaro fueron ")
     
     for i in range(len(arreglo)):
         print(str(Zoo2.get(arreglo[i]+1)))
     
     print("en "+str(maxi)+" escenarios" )
-    # driver code to test the above code 
+
 if __name__ == '__main__': 
     n = 6
     m = 3
     k = 2
+
+    maxEscArr = []
+    minEscArr = []
+    
+    maxEsc = 0
+    minEsc = 0
+
+    promedio = 0
 
     animales = ['Gato', 'Libelula', 'Ciempies', 'Nutria', 'Perro', 'Tapir'];
     grandezas = [3, 2, 1, 6, 4, 5];
@@ -133,8 +165,6 @@ if __name__ == '__main__':
     DiccionarioZoo= {'Gato': 3, 'Libelula': 2, 'Ciempies': 1, 'Nutria': 6, 'Perro': 4, 'Tapir':5}
     
     Zoo2 = {3:'Gato',  2:'Libelula', 1:'Ciempies', 6:'Nutria', 4:'Perro', 5:'Tapir'}
-
-    ##OrdenGA = Orden(animales,grandezas)
         
     apertura = [['Tapir', 'Nutria', 'Perro'], ['Tapir', 'Perro' ,'Gato'], ['Ciempies', 'Tapir', 'Gato'], ['Gato', 'Ciempies', 'Libelula']]
 
@@ -156,6 +186,12 @@ if __name__ == '__main__':
     
     
     mergeSort(apertura)
+  
+    for i in range((m-1)*k):
+            promedioapertura(apertura[i])
+    
+    promedio = promedio/((m-1)*k)
+
     mergeSort(parte1)
     mergeSort(parte2)
     
@@ -168,5 +204,8 @@ if __name__ == '__main__':
     
     apertura.extend(parte1)
     apertura.extend(parte2)
-    
-    print(countSort(apertura))
+    countSort(apertura)
+
+    print('La escena de mayor grandeza total fue la escena '+ str(maxEscArr))
+    print('La escena de menor grandeza total fue la escena '+ str(minEscArr))
+    print('El promedio de grandeza de todo el espect ́aculo fue de'+ str(promedio))
