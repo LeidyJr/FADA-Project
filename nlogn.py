@@ -1,4 +1,3 @@
-# 
 def mergeSort(arr): 
     if len(arr) >1: 
         mid = len(arr)//2  
@@ -14,8 +13,16 @@ def mergeSort(arr):
                 arr[k] = L[i] 
                 i+=1
             else: 
-                arr[k] = R[j] 
-                j+=1
+                if TamañoEscenarios(L[i]) == TamañoEscenarios(R[j]):
+                    if L[i][2] < R[i][2]:
+                        arr[k] = L[i] 
+                        i+=1
+                    else:
+                        arr[k] = L[j] 
+                        j+=1
+                else:
+                    arr[k] = R[j] 
+                    j+=1
             k+=1
           
         while i < len(L): 
@@ -27,9 +34,9 @@ def mergeSort(arr):
             arr[k] = R[j] 
             j+=1
             k+=1
+
   
 def  OrganizarEscenarios(arr,low,high): 
-
     if DiccionarioZoo.get(arr[low]) < DiccionarioZoo.get(arr[high]):
         mini = DiccionarioZoo.get(arr[low])
         maxi = DiccionarioZoo.get(arr[high])
@@ -50,17 +57,20 @@ def  OrganizarEscenarios(arr,low,high):
 def TamañoEscenarios(arr):
     tamaño = 0
     global promedio
+    global k
     try:
-        for j in range(0,2):
+        for j in range(0,k):
+            
             tamaño +=DiccionarioZoo.get(arr[j])
         GrandezaMaxEscena(tamaño,arr)
         GrandezaMinEscena(tamaño,arr)
     except:
-        for k in range(len(arr)):
-            for j in range(0,2):
-                tamaño +=DiccionarioZoo.get(arr[k][j])
-            GrandezaMaxEscena(tamaño,arr[k])
-            GrandezaMinEscena(tamaño,arr[k])
+        for p in range(len(arr)):
+            for j in range(0,k):
+                tamaño +=DiccionarioZoo.get(arr[p][j])
+            GrandezaMaxEscena(tamaño,arr[p])
+            GrandezaMinEscena(tamaño,arr[p])
+    
     return tamaño
 
 def GrandezaMaxEscena(tamaño,arr):
@@ -72,14 +82,15 @@ def GrandezaMaxEscena(tamaño,arr):
 
 def GrandezaMinEscena(tamaño,arr):
     global minEsc
-    
     if minEsc == 0:
         minEsc = tamaño
-    
+        minEscArr.append(arr)
+
     if minEsc > tamaño:
         minEsc = tamaño
         minEscArr.clear()
         minEscArr.append(arr)
+    
 
 def promedioapertura(arr):
     tamaño = 0
@@ -102,19 +113,19 @@ def countSort(arr):
 
     for i in range(len(arr)):
         output[arr[i]-1]+=1 
-
     
     minimun(output)
     maximun(output)
 
 def minimun(arr):
+
     mini = arr[0]
     arreglo = []
     j = 0
     for i in range(1,len(arr)):
         if mini > arr[i]:
             mini = arr[i]
-            arreglo.clear
+            arreglo.clear()
             arreglo.append(i)
         else:
             if mini == arr[i]:
@@ -145,7 +156,6 @@ def maximun(arr):
         print(str(Zoo2.get(arreglo[i]+1)))
     
     print("en "+str(maxi)+" escenarios" )
-
 if __name__ == '__main__': 
     n = 6
     m = 3
