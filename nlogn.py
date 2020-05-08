@@ -1,3 +1,4 @@
+# 
 def mergeSort(arr): 
     if len(arr) >1: 
         mid = len(arr)//2  
@@ -35,8 +36,13 @@ def mergeSort(arr):
             j+=1
             k+=1
 
-  
+
+
 def  OrganizarEscenarios(arr,low,high): 
+    global arrayConteo
+    global output
+    arrayConteo = [DiccionarioZoo[arr[i]] for i in range(3)]
+
     if DiccionarioZoo.get(arr[low]) < DiccionarioZoo.get(arr[high]):
         mini = DiccionarioZoo.get(arr[low])
         maxi = DiccionarioZoo.get(arr[high])
@@ -53,6 +59,8 @@ def  OrganizarEscenarios(arr,low,high):
             if DiccionarioZoo.get(arr[j]) <= mini:
                 arr[j],arr[low] = arr[low],arr[j]
     
+    for i in range(len(arrayConteo)):
+        output[arrayConteo[i]-1]+=1 
 
 def TamañoEscenarios(arr):
     tamaño = 0
@@ -99,24 +107,6 @@ def promedioapertura(arr):
         tamaño +=DiccionarioZoo.get(arr[j])
     promedio = promedio + tamaño
 
-
-def countSort(arr): 
-
-    arr = [DiccionarioZoo.get(p)  for q in range(len(arr)) for p in arr[q] ]
-
-    size = n
-    output = [0] * size
-
-
-    count = [0] * len(arr)
-
-
-    for i in range(len(arr)):
-        output[arr[i]-1]+=1 
-    
-    minimun(output)
-    maximun(output)
-
 def minimun(arr):
 
     mini = arr[0]
@@ -156,10 +146,11 @@ def maximun(arr):
         print(str(Zoo2.get(arreglo[i]+1)))
     
     print("en "+str(maxi)+" escenarios" )
+
 if __name__ == '__main__': 
-    n = 6
-    m = 3
-    k = 2
+    n = 9
+    m = 4
+    k = 3
 
     maxEscArr = []
     minEscArr = []
@@ -169,31 +160,47 @@ if __name__ == '__main__':
 
     promedio = 0
 
-    animales = ['Gato', 'Libelula', 'Ciempies', 'Nutria', 'Perro', 'Tapir'];
-    grandezas = [3, 2, 1, 6, 4, 5];
+    arrayConteo = [0 for _ in range(n)]
+    output = [0] * n
 
-    DiccionarioZoo= {'Gato': 3, 'Libelula': 2, 'Ciempies': 1, 'Nutria': 6, 'Perro': 4, 'Tapir':5}
-    
-    Zoo2 = {3:'Gato',  2:'Libelula', 1:'Ciempies', 6:'Nutria', 4:'Perro', 5:'Tapir'}
-        
-    apertura = [['Tapir', 'Nutria', 'Perro'], ['Tapir', 'Perro' ,'Gato'], ['Ciempies', 'Tapir', 'Gato'], ['Gato', 'Ciempies', 'Libelula']]
+    animales = ['leon', 'panteranegra', 'cebra', 'cocodrilo', 'boa', 'loro', 'caiman', 'tigre', 'capibara'];
+    grandezas = [9, 7, 6, 5, 4, 2, 3, 8, 1];
 
-    parte1 = [['Tapir', 'Nutria', 'Perro'], ['Ciempies', 'Tapir', 'Gato']]
-
-    parte2 = [['Gato', 'Ciempies', 'Libelula'], ['Tapir', 'Perro','Gato']]
-
+    DiccionarioZoo= dict(zip(animales,grandezas))
     
     
+    Zoo2 = dict(zip(grandezas,animales))
+
+    apertura = [['caiman', 'capibara', 'loro'], 
+                ['boa', 'caiman', 'capibara'], 
+                ['cocodrilo', 'capibara', 'loro'], 
+                ['panteranegra', 'cocodrilo', 'loro'], 
+                ['tigre', 'loro', 'capibara'], 
+                ['leon', 'caiman', 'loro'], 
+                ['leon', 'cocodrilo', 'boa'], 
+                ['leon', 'panteranegra', 'cebra'], 
+                ['tigre', 'cebra', 'panteranegra']]
+
+    parte1  =  [['caiman','capibara','loro'], 
+                ['tigre', 'loro', 'capibara'], 
+                ['tigre', 'cebra', 'panteranegra']]
+
+    parte2  =  [['panteranegra', 'cocodrilo', 'loro'], 
+                ['leon', 'panteranegra', 'cebra'], 
+                ['cocodrilo', 'capibara', 'loro']]
+
+    parte3  =  [['boa', 'caiman', 'capibara'], 
+                ['leon', 'caiman', 'loro'], 
+                ['leon', 'cocodrilo', 'boa']]
 
     
     for i in range((m-1)*k):
         OrganizarEscenarios(apertura[i],0,2)
-    
+
     for i in range(0,k):
         OrganizarEscenarios(parte1[i],0,2)
         OrganizarEscenarios(parte2[i],0,2)
-    
-    
+        OrganizarEscenarios(parte3[i],0,2)
     
     mergeSort(apertura)
   
@@ -204,17 +211,18 @@ if __name__ == '__main__':
 
     mergeSort(parte1)
     mergeSort(parte2)
-    
-    parts = [parte1]+[parte2]
-    mergeSort(parts)
+    mergeSort(parte3)
 
+
+    parts = [parte1]+[parte2]+[parte3]
+    mergeSort(parts)
     print('apertura ' + str(apertura))
+
     for i in range(0,m-1):
         print('Parte '+str(i+1)+ str(parts[i]))
     
-    apertura.extend(parte1)
-    apertura.extend(parte2)
-    countSort(apertura)
+    minimun(output)
+    maximun(output)
 
     print('La escena de mayor grandeza total fue la escena '+ str(maxEscArr))
     print('La escena de menor grandeza total fue la escena '+ str(minEscArr))
