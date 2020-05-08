@@ -1,3 +1,4 @@
+import math
 #animales = {'gato', 'libelula', 'ciempies', 'nutria', 'perro', 'tapir'}
 #grandezas = {3, 2, 1, 6, 4, 5}
 n = 6
@@ -42,70 +43,94 @@ def organizarEscena(escenaIn, n):
         escenaIn[i] = grandezas[arrayConteo[i]]
         arrayOcurrencias[arrayConteo[i]-1] = arrayOcurrencias[arrayConteo[i]-1]+1
         grandezaEscena += arrayConteo[i]
-    #return grandezaEscena, maxIn, minIn
-def OrganizarEscenarios(arr,n):
-    i = 0
-    j = 1
-    for i in range(len(arr)):
-        ordenar(arr,i,j)
-        j +=1
+    return [escenaIn, grandezaEscena, maxIn, minIn]
 
-def ordenar(arr,p,q):
-
-    mini = tamañoescenario(arr[p])
-    escen = arr[p]
-    for i in range(q,len(arr)):
-       
-        if mini > tamañoescenario(arr[i]):
-            arr[p] = arr[i]
-            arr[i] = escen
-            escen = arr[p]
-            mini = tamañoescenario(arr[i])
-
-
-#def maximun():
-
-def tamañoescenario(arr):
-    tamaño = 0
+def organizarEscenas(escenasIn, numEscenasIn):
+    arrayConteo = [[0,0] for _ in range(n)]
     
-    for j in range(0,k):
-        tamaño +=animales.get(arr[j])
-    return tamaño
-proba = (1,2)
+    for i in range(numEscenasIn):
+        posicion = math.ceil(escenasIn[i][1]/3)
+        if arrayConteo[posicion][0] == 0:
+            arrayConteo[posicion][0] = i+1
+            arrayConteo[posicion][1] = escenasIn[i][1]
+        else:
+            if arrayConteo[posicion][1] < escenasIn[i][1]:
+                arrayConteo[posicion+1][0] = i+1
+                arrayConteo[posicion+1][1] = escenasIn[i][1]
+            else:
+                arrayAux = arrayConteo[posicion]
+                arrayConteo[posicion+1] = arrayAux
+                arrayConteo[posicion][0] = i+1
+                arrayConteo[posicion][1] = escenasIn[i][1]
+    #print(arrayConteo)
+    arraySalida = []
+    grandezaTotalParte = 0
+    for i in range(n):
+        if arrayConteo[i][0] != 0:
+            grandezaTotalParte += arrayConteo[i][1]
+            arraySalida.append(escenasIn[arrayConteo[i][0]-1][0])
+    #print(arraySalida)
+    #print("grandeza por parte "+str(grandezaTotalParte))
+    return [arraySalida, grandezaTotalParte]
 
-arrayU = [1,1,1]
-print(arrayU.count(1))
-print(animales.keys())
-print(grandezas.keys())
+def organizarPartes(partesIn, numPartes):
+    arrayConteo = [[0,0] for _ in range(n)]
+
+    for i in range(numPartes):
+        posicion = math.ceil(partesIn[i][1]/n)
+        if arrayConteo[posicion][0] == 0:
+            arrayConteo[posicion][0] = i+1
+            arrayConteo[posicion][1] = partesIn[i][1]
+        else:
+            if arrayConteo[posicion][1] < partesIn[i][1]:
+                arrayConteo[posicion+1][0] = i+1
+                arrayConteo[posicion+1][1] = partesIn[i][1]
+            else:
+                arrayAux = arrayConteo[posicion]
+                arrayConteo[posicion+1] = arrayAux
+                arrayConteo[posicion][0] = i+1
+                arrayConteo[posicion][1] = partesIn[i][1]
+    arraySalida = []
+    for i in range(n):
+        if arrayConteo[i][0] != 0:
+            arraySalida.append(partesIn[arrayConteo[i][0]-1][0])
+    print(arraySalida[0])
+    print(arraySalida[1])
+
     
 apertura = [['Tapir', 'Nutria', 'Perro'], ['Tapir', 'Perro' ,'Gato'], ['Ciempies', 'Tapir', 'Gato'], ['Gato', 'Ciempies', 'Libelula']]
 parte1 = [['Tapir', 'Nutria', 'Perro'], ['Ciempies', 'Tapir', 'Gato']]
 parte2 = [['Gato', 'Ciempies', 'Libelula'], ['Tapir', 'Perro', 'Gato']]
 
-"""escenasIn = ['Tapir', 'Nutria', 'Perro']
-print(escenasIn)
-organizarEscena(escenasIn, n)
-
-print(escenasIn)"""
-
 
 arrayApoyo = []
 arrayConteo = [0 for _ in range(n)]
 
+escenasOrganizadas =[]
 for i in range(len(apertura)):
-    organizarEscena(apertura[i], n)
-    #arrayConteo[grandezaIn/3]
-    
+    escenasOrganizadas.append(organizarEscena(apertura[i], n))
+salida1 = organizarEscenas(escenasOrganizadas,4)
 
+escenasOrganizadas1=[]
 for i in range(len(parte1)):
-    organizarEscena(parte1[i], n)
+    escenasOrganizadas1.append(organizarEscena(parte1[i], n))
 
+salida2 = organizarEscenas(escenasOrganizadas1,2)
+
+escenasOrganizadas2 = []
 for i in range(len(parte2)):
-    organizarEscena(parte2[i], n)
+    escenasOrganizadas2.append(organizarEscena(parte2[i], n))
+salida3 = organizarEscenas(escenasOrganizadas2,2)
 
-print(apertura)
-print(parte1)
-print(parte2)   
+salidaPartes = [salida2,salida3]
+
+
+#print(salidaPartes)
+
+print(salida1)
+organizarPartes(salidaPartes,2)
+#print(parte1)
+#print(parte2)   
 print(arrayOcurrencias)
 
 
