@@ -36,7 +36,7 @@ def mergeSort(arr):
             k+=1
 
   
-def  OrganizarEscenarios(arr,low,high): 
+def  OrganizarEscenarios(arr,low,high): #Ordena escenas, complejidad constante
     if DiccionarioZoo.get(arr[low]) < DiccionarioZoo.get(arr[high]):
         mini = DiccionarioZoo.get(arr[low])
         maxi = DiccionarioZoo.get(arr[high])
@@ -59,7 +59,7 @@ def TamañoEscenarios(arr):
     global promedio
     global k
     try:
-        for j in range(0,k):
+        for j in range(0,k):#recorre las escenas de cada parte
             
             tamaño +=DiccionarioZoo.get(arr[j])
         GrandezaMaxEscena(tamaño,arr)
@@ -72,6 +72,7 @@ def TamañoEscenarios(arr):
             GrandezaMinEscena(tamaño,arr[p])
     
     return tamaño
+
 
 def GrandezaMaxEscena(tamaño,arr):
     global maxEsc
@@ -103,6 +104,7 @@ def promedioapertura(arr):
 def countSort(arr): 
 
     arr = [DiccionarioZoo.get(p)  for q in range(len(arr)) for p in arr[q] ]
+    print("---------",arr)
 
     size = n
     output = [0] * size
@@ -187,10 +189,10 @@ if __name__ == '__main__':
 
     
     for i in range((m-1)*k):
-        OrganizarEscenarios(apertura[i],0,2)
+        OrganizarEscenarios(apertura[i],0,2)#Ordena escenas de la apertura (internamente)
     
     for i in range(0,k):
-        OrganizarEscenarios(parte1[i],0,2)
+        OrganizarEscenarios(parte1[i],0,2)#Ordena escenas de las partes(internamente)
         OrganizarEscenarios(parte2[i],0,2)
     
     
@@ -218,4 +220,4 @@ if __name__ == '__main__':
 
     print('La escena de mayor grandeza total fue la escena '+ str(maxEscArr))
     print('La escena de menor grandeza total fue la escena '+ str(minEscArr))
-    print('El promedio de grandeza de todo el espect ́aculo fue de'+ str(promedio))
+    print('El promedio de grandeza de todo el espectaculo fue de'+ str(promedio))

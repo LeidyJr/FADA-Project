@@ -65,13 +65,12 @@ def Change(parts):
     for x in range(len(newlist)):
         mergeSort(newlist[x])
     a = [{p[1]:p[0] for p in newlist[q]} for q in range(len(newlist))]
-    #ordena internamente cada escena
+    #ordena internamente cada escena(2:perro)
     
     
     fina = [[y for y in a[x].keys()] for x in range(len(a)) ]
     print(fina)
     #arreglo con las llaves ordenadas
-
 
 
     
@@ -89,5 +88,5 @@ if __name__ == '__main__':
 
     parte2 = [['Gato', 'Ciempies', 'Libelula'], ['Tapir', 'Perro' 'Gato']]
 
-    Change(parte1);
+    Change(apertura);
     
