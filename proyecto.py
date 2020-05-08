@@ -7,6 +7,9 @@ k = 2
 animales = {'Gato': 3, 'Libelula': 2, 'Ciempies': 1, 'Nutria': 6, 'Perro': 4, 'Tapir':5}
 grandezas = {3: 'Gato', 2: 'Libelula', 1: 'Ciempies', 6: 'Nutria', 4: 'Perro', 5:'Tapir'}
 
+maxEscena = []
+minEscena = []
+
 arrayOcurrencias = [0 for _ in range(n)]
 
 def organizarEscena(escenaIn, n):
@@ -43,6 +46,20 @@ def organizarEscena(escenaIn, n):
         escenaIn[i] = grandezas[arrayConteo[i]]
         arrayOcurrencias[arrayConteo[i]-1] = arrayOcurrencias[arrayConteo[i]-1]+1
         grandezaEscena += arrayConteo[i]
+
+    if len(maxEscena) == 0:
+        maxEscena.append([escenaIn, grandezaEscena])
+    else:
+        if maxEscena[0][1] < grandezaEscena:
+            maxEscena.clear()
+            maxEscena.append([escenaIn, grandezaEscena])
+    
+    if len(minEscena) == 0:
+        minEscena.append([escenaIn, grandezaEscena])
+    else:
+        if minEscena[0][1] > grandezaEscena:
+            minEscena.clear()
+            minEscena.append([escenaIn, grandezaEscena])
     return [escenaIn, grandezaEscena, maxIn, minIn]
 
 def organizarEscenas(escenasIn, numEscenasIn):
@@ -129,6 +146,10 @@ salidaPartes = [salida2,salida3]
 
 print(salida1)
 organizarPartes(salidaPartes,2)
+print('Escena maxim')
+print(maxEscena)
+print('Escena min')
+print(minEscena)
 #print(parte1)
 #print(parte2)   
 print(arrayOcurrencias)
