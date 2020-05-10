@@ -54,7 +54,7 @@ def organizarEscena(escenaIn, n):
 def organizarEscenas(escenasIn, numEscenasIn):
     arraySalida = [[0,0] for _ in range(numEscenasIn)]
     arrayConteo = [0 for _ in range(n)]
-    arrayIn = [ [math.ceil(escenasIn[i][1]/3),i] for i in range(numEscenasIn)]
+    arrayIn = [ [math.ceil(escenasIn[i][1]/3),i, escenasIn[i][2]] for i in range(numEscenasIn)]
     #print(arrayIn)
     
     for i in range(numEscenasIn):
@@ -76,6 +76,15 @@ def organizarEscenas(escenasIn, numEscenasIn):
         contador -= 1
 
     #print(arraySalida)
+    
+    for i in range(1,numEscenasIn):
+        if arraySalida[i][0] == arraySalida[i-1][0]:
+            if arraySalida[i][2] < arraySalida[i-1][2]:
+                arrayAux = arraySalida[i]
+                arraySalida[i] = arraySalida[i-1]
+                arraySalida[i-1] = arrayAux
+    #print(arraySalida)
+
     grandezaTotalParte = 0
     arrayCompleto = [ [] for i in range(numEscenasIn)]
     for i in range(numEscenasIn):
@@ -83,6 +92,7 @@ def organizarEscenas(escenasIn, numEscenasIn):
         arrayCompleto[i] = escenasIn[arraySalida[i][1]][0]
 
     #print('grandezaTotal '+ str(grandezaTotalParte))
+
     #print(arrayCompleto)
     return [arrayCompleto, grandezaTotalParte]
 
@@ -146,7 +156,7 @@ k = 3
 animales = {'leon':9, 'panteranegra':7, 'cebra':6, 'cocodrilo':5, 'boa':4, 'loro':2, 'caiman':3, 'tigre':8, 'capibara':1}
 grandezas = {9:'leon', 7:'panteranegra', 6:'cebra', 5:'cocodrilo', 4:'boa', 2:'loro', 3:'caiman', 8:'tigre', 1:'capibara'}
 
-apertura = [['caiman', 'capibara', 'loro'], ['boa', 'caiman', 'capibara'], ['cocodrilo', 'capibara', 'loro'], ['panteranegra', 'cocodrilo', 'loro'], ['tigre', 'loro', 'capibara'], ['leon', 'caiman', 'loro'], ['leon', 'cocodrilo', 'boa'], ['leon', 'panteranegra', 'cebra'], ['tigre', 'cebra', 'panteranegra']]
+apertura = [['caiman', 'capibara', 'loro'], ['cocodrilo', 'capibara', 'loro'], ['boa', 'caiman', 'capibara'],['panteranegra', 'cocodrilo', 'loro'], ['tigre', 'loro', 'capibara'], ['leon', 'caiman', 'loro'], ['leon', 'cocodrilo', 'boa'], ['leon', 'panteranegra', 'cebra'], ['tigre', 'cebra', 'panteranegra']]
 
 parte1 = [['caiman', 'capibara', 'loro'], ['tigre', 'loro', 'capibara'], ['tigre', 'cebra', 'panteranegra']]
 
@@ -200,3 +210,9 @@ minEscena = []
 arrayOcurrencias = [0 for _ in range(n)]
 
 organizarEvento(n,m,k,arrayEntrada)
+"""escenasOrganizadas = []
+
+for i in range(len(apertura)):
+    escenasOrganizadas.append(organizarEscena(apertura[i], n))
+
+niu, x = organizarEscenas(escenasOrganizadas, len(apertura))"""
