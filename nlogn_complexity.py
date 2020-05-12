@@ -213,6 +213,9 @@ if __name__ == '__main__':
    
     DiccionarioZoo= dict(zip(animales,grandezas))
     Zoo2 = dict(zip(grandezas,animales))
+
+    tiempo_inicial = time()#Inicio tomando tiempo
+
     for i in range((m-1)*k):
         OrganizarEscenas(apertura[i],0,2)
 

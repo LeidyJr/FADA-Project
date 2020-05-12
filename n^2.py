@@ -1,4 +1,8 @@
-def  OrganizarEscenarios(arr,low,high): 
+from time import time
+
+#Métodos utilizados para ordenamiento
+
+def  OrganizarEscenas(arr,low,high): 
     global arrayConteo
     global output
     arrayConteo = [DiccionarioZoo[arr[i]] for i in range(3)]
@@ -22,36 +26,6 @@ def  OrganizarEscenarios(arr,low,high):
     for i in range(len(arrayConteo)):
         output[arrayConteo[i]-1]+=1 
     
-    
-def insertionSortParts(arr): 
-
-    for i in range(0, len(arr)): 
-        for j in range (i+1, len(arr)):
-            if TamañoEscenarios(arr[i]) > TamañoEscenarios(arr[j]):
-                save = arr[i] 
-                arr[i] = arr[j]
-                arr[j] = save
-        
-        
-  
-def TamañoEscenarios(arr):
-    tamaño = 0
-    global promedio
-    global k
-    try:
-        for j in range(0,k):
-            
-            tamaño +=DiccionarioZoo.get(arr[j])
-        GrandezaMaxEscena(tamaño,arr)
-        GrandezaMinEscena(tamaño,arr)
-    except:
-        for p in range(len(arr)):
-            for j in range(0,k):
-                tamaño +=DiccionarioZoo.get(arr[p][j])
-            GrandezaMaxEscena(tamaño,arr[p])
-            GrandezaMinEscena(tamaño,arr[p])
-    
-    return tamaño
 
 def GrandezaMaxEscena(tamaño,arr):
     global maxEsc
@@ -70,16 +44,47 @@ def GrandezaMinEscena(tamaño,arr):
         minEsc = tamaño
         minEscArr.clear()
         minEscArr.append(arr)
-    
 
-def promedioapertura(arr):
+def TamañoEscenas(arr):
+    tamaño = 0
+    global promedio
+    global k
+    try:
+        for j in range(0,k):
+            
+            tamaño +=DiccionarioZoo.get(arr[j])
+        GrandezaMaxEscena(tamaño,arr)
+        GrandezaMinEscena(tamaño,arr)
+    except:
+        for p in range(len(arr)):
+            for j in range(0,k):
+                tamaño +=DiccionarioZoo.get(arr[p][j])
+            GrandezaMaxEscena(tamaño,arr[p])
+            GrandezaMinEscena(tamaño,arr[p])
+    
+    return tamaño
+
+def insertionSortParts(arr): 
+
+    for i in range(0, len(arr)): 
+        for j in range (i+1, len(arr)):
+            if TamañoEscenas(arr[i]) > TamañoEscenas(arr[j]):
+                save = arr[i] 
+                arr[i] = arr[j]
+                arr[j] = save
+        
+    
+#Métodos utilizados para sacar los reportes
+
+
+def PromedioApertura(arr):
     tamaño = 0
     global promedio
     for j in range(0,3):
         tamaño +=DiccionarioZoo.get(arr[j])
     promedio = promedio + tamaño
 
-def minimun(arr):
+def Minimo(arr):
 
     mini = arr[0]
     arreglo = []
@@ -93,14 +98,14 @@ def minimun(arr):
             if mini == arr[i]:
                 arreglo.append(i)
 
-    print("los animales que menos participaro fueron ")
+    print("Los animales que menos participaron fueron: ")
     
     for i in range(len(arreglo)):
         print(str(DiccionarioGrandezaZoo.get(arreglo[i]+1)))
     
-    print("en "+str(mini)+" escenarios" )
+    print(" en "+str(mini)+" escenarios. " )
 
-def maximun(arr):
+def Maximo(arr):
     maxi = arr[0]
     arreglo = []
     j = 0
@@ -112,13 +117,15 @@ def maximun(arr):
         else:
             if maxi == arr[i]:
                 arreglo.append(i)
-    print("los animales que mas participaro fueron ")
+    print("Los animales que más participaron fueron: ")
     
     for i in range(len(arreglo)):
         print(str(DiccionarioGrandezaZoo.get(arreglo[i]+1)))
     
-    print("en "+str(maxi)+" escenarios" )
-# driver code to test the above code 
+    print(" en "+str(maxi)+" escenarios. " )
+
+#Método principal, lee el archivo, llena las estructuras de datos y llama los métodos.
+
 if __name__ == '__main__': 
     lista = []
     apertura = []
@@ -177,19 +184,21 @@ if __name__ == '__main__':
     DiccionarioZoo= dict(zip(animales,grandezas))
     DiccionarioGrandezaZoo = dict(zip(grandezas,animales))
 
+    tiempo_inicial = time()#Inicio tomando tiempo
+
     for i in range((m-1)*k):
-            promedioapertura(apertura[i])
+            PromedioApertura(apertura[i])
     
     promedio = promedio/((m-1)*k)
     
     for i in range((m-1)*k):
-        OrganizarEscenarios(apertura[i],0,2)
+        OrganizarEscenas(apertura[i],0,2)
     
     insertionSortParts(apertura)
    
     for i in range(m-1):
         for j in range(0,k):
-            OrganizarEscenarios(parts[i][j],0,2)
+            OrganizarEscenas(parts[i][j],0,2)
 
     for i in range(m-1):
         insertionSortParts(parts[i])
@@ -197,17 +206,22 @@ if __name__ == '__main__':
     
     insertionSortParts(parts)
 
-    print('apertura ' + str(apertura))
+    print('El orden en el que se debe presentar el espectáculo es: \n')
+    print('Apertura: ' + str(apertura))
 
     for i in range(0,m-1):
-        print('Parte '+str(i+1)+ str(parts[i]))
+        print('Parte '+str(i+1)+ str(parts[i])+": ")
     
-    minimun(output)
-    maximun(output)
+    Minimo(output)
+    Maximo(output)
 
-    print('La escena de mayor grandeza total fue la escena '+ str(maxEscArr))
-    print('La escena de menor grandeza total fue la escena '+ str(minEscArr))
-    print('El promedio de grandeza de todo el espect ́aculo fue de'+ str(promedio))
+    print('La escena de mayor grandeza total fue la escena: '+ str(maxEscArr))
+    print('La escena de menor grandeza total fue la escena: '+ str(minEscArr))
+    print('El promedio de grandeza de todo el espectáculo fue de: '+ str(promedio))
 
+tiempo_final = time()
+tiempo_ejecucion = tiempo_final - tiempo_inicial
+ 
+print ('El tiempo de ejecucion fue:',tiempo_ejecucion) 
 
 
