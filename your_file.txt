@@ -10,3 +10,4 @@ apertura = {{tapir, nutria, perro}, {tapir, perro gato}, {ciempies, tapir, gato}
 parte = {{tapir, nutria, perro}, {ciempies, tapir, gato}};
 
 parte = {{gato, ciempies, libelula}, {tapir, perro gato}};
+

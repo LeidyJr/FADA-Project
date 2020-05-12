@@ -36,6 +36,7 @@ def Valores(parts):
     print(newlist)
 
 
+
 # driver code to test the above code 
 if __name__ == '__main__': 
     n = 6
