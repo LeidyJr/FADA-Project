@@ -1,4 +1,5 @@
 import math
+from time import time
 
 def minYmaxParticipante():
     arrayMin = []
@@ -250,6 +251,12 @@ for i in range(len(parts)):
 maxEscena = []
 minEscena = []
 
+tiempo_inicial = time()
+
 arrayOcurrencias = [0 for _ in range(n)]
 
 organizarEvento(n,m,k,arrayEntrada)
+
+tiempo_final = time()
+tiempo_ejecucion = tiempo_final - tiempo_inicial
+print("El tiempo de ejecución fue : ", tiempo_ejecucion)
