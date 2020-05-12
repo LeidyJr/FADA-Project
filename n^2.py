@@ -1,25 +1,26 @@
-def insertionSortescenarios(arr): 
-    
+def  OrganizarEscenarios(arr,low,high): 
     global arrayConteo
     global output
-    global DiccionarioZoo,DiccionarioGrandezaZoo
-
     arrayConteo = [DiccionarioZoo[arr[i]] for i in range(3)]
 
-    for i in range(1, len(arr)): 
-  
-        key = DiccionarioZoo[arr[i]]
-  
-        j = i-1
-        while j >=0 and key < DiccionarioZoo[arr[j]] : 
-                arr[j+1] = arr[j] 
-                j -= 1
+    if DiccionarioZoo.get(arr[low]) < DiccionarioZoo.get(arr[high]):
+        mini = DiccionarioZoo.get(arr[low])
+        maxi = DiccionarioZoo.get(arr[high])
         
-        arr[j+1] = DiccionarioGrandezaZoo[key]
+    else:
+        maxi = DiccionarioZoo.get(arr[low])
+        mini= DiccionarioZoo.get(arr[high])
+        arr[low],arr[high] = arr[high],arr[low]
+
+    for j in range(low+1, high):
+        if  DiccionarioZoo.get(arr[j]) >= maxi: 
+            arr[j],arr[high] = arr[high],arr[j]
+        else:
+            if DiccionarioZoo.get(arr[j]) <= mini:
+                arr[j],arr[low] = arr[low],arr[j]
     
     for i in range(len(arrayConteo)):
         output[arrayConteo[i]-1]+=1 
-
     
     
 def insertionSortParts(arr): 
@@ -182,13 +183,13 @@ if __name__ == '__main__':
     promedio = promedio/((m-1)*k)
     
     for i in range((m-1)*k):
-        insertionSortescenarios(apertura[i])
+        OrganizarEscenarios(apertura[i],0,2)
     
     insertionSortParts(apertura)
    
     for i in range(m-1):
         for j in range(0,k):
-            insertionSortescenarios(parts[i][j])
+            OrganizarEscenarios(parts[i][j],0,2)
 
     for i in range(m-1):
         insertionSortParts(parts[i])
@@ -207,4 +208,6 @@ if __name__ == '__main__':
     print('La escena de mayor grandeza total fue la escena '+ str(maxEscArr))
     print('La escena de menor grandeza total fue la escena '+ str(minEscArr))
     print('El promedio de grandeza de todo el espect ́aculo fue de'+ str(promedio))
+
+
 
