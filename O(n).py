@@ -1,5 +1,43 @@
 import math
 
+def minYmaxParticipante():
+    arrayMin = []
+    arrayMax = []
+    minIn = 0
+    maxIn = 0
+    salidaMax = "El animal que participo en mas escenas dentro del espectaculo fue"
+    salidaMin = "El animal que menos participo en escenas dentro del espectaculo fue"
+    for i in range(1, len(arrayOcurrencias)):
+        if i == 1:
+            if arrayOcurrencias[i-1] < arrayOcurrencias [i]:
+                maxIn = arrayOcurrencias[i]
+                minIn = arrayOcurrencias[i-1]
+                arrayMin.append(i-1)
+                arrayMax.append(i)
+            else:
+                minIn = arrayOcurrencias[i]
+                maxIn = arrayOcurrencias[i-1]
+                arrayMin.append(i)
+                arrayMax.append(i-1)
+        else:
+            if arrayOcurrencias[i] < minIn:
+                minIn = arrayOcurrencias[i]
+                arrayMin.clear()
+            if arrayOcurrencias[i] > maxIn:
+                maxIn = arrayOcurrencias[i]
+                arrayMax.clear()
+            if minIn == arrayOcurrencias[i]:
+                arrayMin.append(i)
+            if maxIn == arrayOcurrencias[i]:
+                arrayMax.append(i)
+    for i in range(len(arrayMax)):
+        salidaMax = salidaMax+" "+str(grandezas[arrayMax[i]+1])+","
+    salidaMax = salidaMax+" con "+str(maxIn)+" escenas"
+    for i in range(len(arrayMin)):
+        salidaMin = salidaMin+" "+str(grandezas[arrayMin[i]+1])+","
+    salidaMin = salidaMin+" con "+str(minIn)+" escenas"
+    print(salidaMax)
+    print(salidaMin)
 
 def organizarEscena(escenaIn, n):
     arrayConteo = [animales[escenaIn[i]] for i in range(3)]
@@ -140,12 +178,16 @@ def organizarEvento(n, m, k, arrayPartes):
     
     partesOut = organizarPartes(partes, m-1)
 
-    print(aperturaOut)
+    print("El orden en el que se debe presentar el espectaculo es:")
 
-    #print(aperturaOut)
+    print("apertura = "+str(aperturaOut))
     for i in range(m-1):
-        print(partesOut[i])
-    #print('TAMAÑO ARRAY APERTURS : ', str(len(arrayPartes)))
+        print("parte"+str(i+1)+" = "+str(partesOut[i]))
+    
+    minYmaxParticipante()
+
+    print("La escena de menor grandeza total fue la escena "+str(minEscena[0][0]))
+    print("La escena de mayor grandeza total fue la escena "+str(maxEscena[0][0]))
 
 
 lista = []
@@ -204,7 +246,7 @@ arrayEntrada.append(apertura)
 for i in range(len(parts)):
     arrayEntrada.append(parts[i])
     
-print(arrayEntrada)
+#print(arrayEntrada)
 maxEscena = []
 minEscena = []
 
