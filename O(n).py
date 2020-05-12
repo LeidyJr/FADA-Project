@@ -180,7 +180,7 @@ def organizarEvento(n, m, k, arrayPartes):
 
     print("El orden en el que se debe presentar el espectaculo es:")
 
-    print("apertura = "+str(aperturaOut))
+    print("apertura = "+str(aperturaOut[0][0]))
     for i in range(m-1):
         print("parte"+str(i+1)+" = "+str(partesOut[i]))
     
