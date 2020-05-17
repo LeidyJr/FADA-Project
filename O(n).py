@@ -102,21 +102,16 @@ def organizarRepeticiones(arrayIn, pos):
 
 def organizarEscenas(escenasIn, numEscenasIn):
     arraySalida = [[0,0] for _ in range(numEscenasIn)]
-    arrayConteo = [0 for _ in range(n)]
-    arrayIn = [ [math.ceil(escenasIn[i][1]/3),i, escenasIn[i][2]] for i in range(numEscenasIn)]
-    #print(arrayIn)
+    arrayConteo = [0 for _ in range(maxEscena[0][1])]
+    arrayIn = [ [math.ceil(escenasIn[i][1]-1),i, escenasIn[i][2]] for i in range(numEscenasIn)]
     
     for i in range(numEscenasIn):
         arrayConteo[arrayIn[i][0]] = arrayConteo[arrayIn[i][0]]+1
-        
-    #print(arrayConteo)
+    
 
-    for i in range(1,n):
+    for i in range(1,maxEscena[0][1]):
         arrayConteo[i] =arrayConteo[i]+ arrayConteo[i-1]
     
-    #print(arrayConteo)
-
-    #print('contador')
     
     contador = numEscenasIn-1
     for i in range(numEscenasIn):
@@ -127,6 +122,7 @@ def organizarEscenas(escenasIn, numEscenasIn):
     for i in range(1,numEscenasIn):
         organizarRepeticiones(arraySalida,i)
 
+    #print(arraySalida)
     grandezaTotalParte = 0
     arrayCompleto = [ [] for i in range(numEscenasIn)]
     for i in range(numEscenasIn):
