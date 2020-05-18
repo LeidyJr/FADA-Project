@@ -90,40 +90,39 @@ def organizarEscena(escenaIn, n):
             minEscena.append([escenaIn, grandezaEscena])
     return [escenaIn, grandezaEscena, maxIn, minIn]
 
+def organizarRepeticiones(arrayIn, pos):
+    if arrayIn[pos][0] == arrayIn[pos-1][0]:
+        if arrayIn[pos][2] < arrayIn[pos-1][2]:
+            arrayAux = arrayIn[pos]
+            arrayIn[pos] = arrayIn[pos-1]
+            arrayIn[pos-1] = arrayAux
+        if pos == 2:
+            if arrayIn[pos-1][0] == arrayIn[pos-2][0]:
+                organizarRepeticiones(arrayIn,pos-1)
+
 def organizarEscenas(escenasIn, numEscenasIn):
     arraySalida = [[0,0] for _ in range(numEscenasIn)]
-    arrayConteo = [0 for _ in range(n)]
-    arrayIn = [ [math.ceil(escenasIn[i][1]/3),i, escenasIn[i][2]] for i in range(numEscenasIn)]
-    #print(arrayIn)
+    arrayConteo = [0 for _ in range(maxEscena[0][1])]
+    arrayIn = [ [math.ceil(escenasIn[i][1]-1),i, escenasIn[i][2]] for i in range(numEscenasIn)]
     
     for i in range(numEscenasIn):
         arrayConteo[arrayIn[i][0]] = arrayConteo[arrayIn[i][0]]+1
-        
-    #print(arrayConteo)
+    
 
-    for i in range(1,n):
+    for i in range(1,maxEscena[0][1]):
         arrayConteo[i] =arrayConteo[i]+ arrayConteo[i-1]
     
-    #print(arrayConteo)
-
-    #print('contador')
     
     contador = numEscenasIn-1
     for i in range(numEscenasIn):
         arraySalida[arrayConteo[arrayIn[contador][0]]-1] = arrayIn[contador]
         arrayConteo[arrayIn[contador][0]] = arrayConteo[arrayIn[contador][0]]-1
         contador -= 1
-
-    #print(arraySalida)
     
     for i in range(1,numEscenasIn):
-        if arraySalida[i][0] == arraySalida[i-1][0]:
-            if arraySalida[i][2] < arraySalida[i-1][2]:
-                arrayAux = arraySalida[i]
-                arraySalida[i] = arraySalida[i-1]
-                arraySalida[i-1] = arrayAux
-    #print(arraySalida)
+        organizarRepeticiones(arraySalida,i)
 
+    #print(arraySalida)
     grandezaTotalParte = 0
     arrayCompleto = [ [] for i in range(numEscenasIn)]
     for i in range(numEscenasIn):
@@ -142,11 +141,9 @@ def organizarPartes(partesIn, numPartes):
     arrayIn = [ [math.ceil(partesIn[i][1]/numPartes),i] for i in range(numPartes)]
     for i in range(numPartes):
         arrayConteo[arrayIn[i][0]] = arrayConteo[arrayIn[i][0]]+1
-
-    
     for i in range(1,rango):
         arrayConteo[i] =arrayConteo[i]+ arrayConteo[i-1]
-
+    
     contador = numPartes-1
     for i in range(numPartes):
         arraySalida[arrayConteo[arrayIn[contador][0]]-1] = arrayIn[contador]
@@ -252,11 +249,8 @@ maxEscena = []
 minEscena = []
 
 tiempo_inicial = time()
-
 arrayOcurrencias = [0 for _ in range(n)]
-
 organizarEvento(n,m,k,arrayEntrada)
-
 tiempo_final = time()
 tiempo_ejecucion = tiempo_final - tiempo_inicial
 print("El tiempo de ejecución fue : ", tiempo_ejecucion)

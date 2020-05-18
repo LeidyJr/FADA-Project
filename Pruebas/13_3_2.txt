@@ -1,0 +1,13 @@
+n = 13;
+m = 3;
+k = 2;
+
+animales = {gato, libelula, ciempies, nutria, perro, tapir, cotorra, loro, buey, caiman, pez, tortuga, zorro};
+grandezas = {3, 2, 1, 6, 4, 5, 12, 11, 13, 7, 9, 10, 8};
+
+apertura = {{tapir, nutria, perro}, {tapir, perro gato}, {ciempies, tapir, gato}, {gato, ciempies, libelula}};
+
+parte = {{tapir, nutria, perro}, {ciempies, tapir, gato}};
+
+parte = {{gato, ciempies, libelula}, {tapir, perro gato}};
+
