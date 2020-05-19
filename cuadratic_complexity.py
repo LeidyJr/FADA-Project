@@ -183,6 +183,7 @@ if __name__ == '__main__':
    
     DiccionarioZoo= dict(zip(animales,grandezas))
     DiccionarioGrandezaZoo = dict(zip(grandezas,animales))
+    print(DiccionarioZoo)
 
     tiempo_inicial = time()#Inicio tomando tiempo
 
