@@ -1,6 +1,6 @@
 import math
 from time import time
-
+grandezaPartesMax=0
 def minYmaxParticipante():
     arrayMin = []
     arrayMax = []
@@ -101,6 +101,7 @@ def organizarRepeticiones(arrayIn, pos):
                 organizarRepeticiones(arrayIn,pos-1)
 
 def organizarEscenas(escenasIn, numEscenasIn):
+    global grandezaPartesMax
     arraySalida = [[0,0] for _ in range(numEscenasIn)]
     arrayConteo = [0 for _ in range(maxEscena[0][1])]
     arrayIn = [ [math.ceil(escenasIn[i][1]-1),i, escenasIn[i][2]] for i in range(numEscenasIn)]
@@ -130,18 +131,19 @@ def organizarEscenas(escenasIn, numEscenasIn):
         arrayCompleto[i] = escenasIn[arraySalida[i][1]][0]
 
     #print('grandezaTotal '+ str(grandezaTotalParte))
-
+    if grandezaPartesMax < grandezaTotalParte:
+        grandezaPartesMax = grandezaTotalParte
     #print(arrayCompleto)
     return [arrayCompleto, grandezaTotalParte]
 
 def organizarPartes(partesIn, numPartes):
     arraySalida = [[0,0] for _ in range(numPartes)]
-    rango = (n-1)*m
-    arrayConteo = [0 for _ in range(rango)]
-    arrayIn = [ [math.ceil(partesIn[i][1]/numPartes),i] for i in range(numPartes)]
+    #rango = (n-1)*m
+    arrayConteo = [0 for _ in range(grandezaPartesMax)]
+    arrayIn = [ [math.ceil(partesIn[i][1]),i] for i in range(numPartes)]
     for i in range(numPartes):
         arrayConteo[arrayIn[i][0]] = arrayConteo[arrayIn[i][0]]+1
-    for i in range(1,rango):
+    for i in range(1,grandezaPartesMax):
         arrayConteo[i] =arrayConteo[i]+ arrayConteo[i-1]
     
     contador = numPartes-1
@@ -244,9 +246,9 @@ arrayEntrada.append(apertura)
 for i in range(len(parts)):
     arrayEntrada.append(parts[i])
     
-#print(arrayEntrada)
 maxEscena = []
 minEscena = []
+
 
 tiempo_inicial = time()
 arrayOcurrencias = [0 for _ in range(n)]
