@@ -244,7 +244,6 @@ arrayEntrada.append(apertura)
 for i in range(len(parts)):
     arrayEntrada.append(parts[i])
     
-#print(arrayEntrada)
 maxEscena = []
 minEscena = []
 
