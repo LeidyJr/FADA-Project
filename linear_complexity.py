@@ -101,6 +101,7 @@ def organizarRepeticiones(arrayIn, pos):
                 organizarRepeticiones(arrayIn,pos-1)
 
 def organizarEscenas(escenasIn, numEscenasIn):
+    global grandezaPartesMax
     arraySalida = [[0,0] for _ in range(numEscenasIn)]
     arrayConteo = [0 for _ in range(maxEscena[0][1])]
     arrayIn = [ [math.ceil(escenasIn[i][1]-1),i, escenasIn[i][2]] for i in range(numEscenasIn)]
