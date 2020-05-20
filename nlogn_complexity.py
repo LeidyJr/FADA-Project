@@ -1,8 +1,5 @@
 from time import time
 
-tiempo_inicial = time()
-
-
 #Métodos utilizados para ordenamiento
 
 def  OrganizarEscenas(arr,low,high): 
