@@ -61,6 +61,7 @@ def TamañoEscenas(arr):
                 tamaño +=DiccionarioZoo.get(arr[p][j])
             GrandezaMaxEscena(tamaño,arr[p])
             GrandezaMinEscena(tamaño,arr[p])
+            tamaño = 0
     
     return tamaño
 
