@@ -1,5 +1,5 @@
 from time import time
-
+#._. este comentario
 #Métodos utilizados para ordenamiento
 
 def  OrganizarEscenas(arr,low,high): 
