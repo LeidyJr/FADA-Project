@@ -49,13 +49,16 @@ def TamañoEscenas(arr):
     tamaño = 0
     global promedio
     global k
+
     try:
         for j in range(0,2):
             
             tamaño +=DiccionarioZoo.get(arr[j])
         GrandezaMaxEscena(tamaño,arr)
         GrandezaMinEscena(tamaño,arr)
+    
     except:
+    
         for p in range(len(arr)):
             for j in range(0,2):
                 tamaño +=DiccionarioZoo.get(arr[p][j])
