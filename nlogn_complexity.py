@@ -91,6 +91,9 @@ def mergeSort(arr):
                         else:
                             arr[k] = R[j] 
                             j+=1
+                    else:
+                        arr[k] = R[j] 
+                        j+=1
                 except:
                     break
                 else:
