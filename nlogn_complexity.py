@@ -93,9 +93,6 @@ def mergeSort(arr):
                         j+=1
                 except:
                     break
-                else:
-                    arr[k] = R[j] 
-                    j+=1
             k+=1
           
         while i < len(L): 
