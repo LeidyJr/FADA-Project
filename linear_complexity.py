@@ -237,9 +237,12 @@ for r in range(m-1):
     x = 0
     y = 3
 
-   
+print(grandezas, len(grandezas))
+
 animales = dict(zip(animales,grandezas))
 grandezas = dict(zip(grandezas,animales))
+
+print(len(grandezas.keys()))
 
 arrayEntrada.append(apertura)
 
