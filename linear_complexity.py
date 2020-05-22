@@ -247,7 +247,7 @@ n = int(lista[0][0])
 m = int(lista[1][0])
 k = int(lista[2][0])
 
-
+print(n,m,k)
 animales = [lista[3][i].replace('[','').replace(',','').replace(']','') for i in range(n)]
 grandezas = [int(lista[4][i].replace('[','').replace(',','').replace(']','')) for i in range(n)]
 
@@ -272,9 +272,12 @@ for r in range(m-1):
     x = 0
     y = 3
 
-   
+print(grandezas, len(grandezas))
+
 animales = dict(zip(animales,grandezas))
 grandezas = dict(zip(grandezas,animales))
+
+print(len(grandezas.keys()))
 
 arrayEntrada.append(apertura)
 

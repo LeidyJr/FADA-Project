@@ -76,7 +76,7 @@ def mergeSort(arr):
         i = j = k = 0
           
         while i < len(L) and j < len(R): 
-            if TamañoEscenarios(L[i]) < TamañoEscenarios(R[j]): 
+            if TamañoEscenas(L[i]) < TamañoEscenas(R[j]): 
                 arr[k] = L[i] 
                 i+=1
             else: 
