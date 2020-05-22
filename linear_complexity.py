@@ -158,6 +158,34 @@ def organizarPartes(partesIn, numPartes):
 
     return arrayCompleto
 
+def organizarPartesMergeSort(partesIn):
+    if len(partesIn) > 1:
+        mid = len(partesIn)//2
+        print(mid)
+        L = partesIn[:mid]
+        R = partesIn[mid:]
+        organizarPartesMergeSort(L)
+        organizarPartesMergeSort(R)
+
+        i = j = k = 0
+        while i < len(L) and j < len(R): 
+            if L[i][1] < R[j][1]: 
+                partesIn[k] = L[i] 
+                i+=1
+            else: 
+                partesIn[k] = R[j] 
+                j+=1
+            k+=1
+        while i < len(L): 
+            partesIn[k] = L[i] 
+            i+=1
+            k+=1
+          
+        while j < len(R): 
+            partesIn[k] = R[j] 
+            j+=1
+            k+=1
+
 def organizarEvento(n, m, k, arrayPartes):
     aperturaOut = []
     partes = []
@@ -174,8 +202,10 @@ def organizarEvento(n, m, k, arrayPartes):
                 escenasOrganizadas.append(organizarEscena(arrayPartes[i][j], n))
             partes.append(organizarEscenas(escenasOrganizadas, k))
             escenasOrganizadas.clear()
-        
-    
+    print(partes)   
+    organizarPartesMergeSort(partes)
+    print(partes)
+    print('ultimo')
     partesOut = organizarPartes(partes, m-1)
 
     print("El orden en el que se debe presentar el espectaculo es:")
@@ -188,6 +218,11 @@ def organizarEvento(n, m, k, arrayPartes):
 
     print("La escena de menor grandeza total fue la escena "+str(minEscena[0][0]))
     print("La escena de mayor grandeza total fue la escena "+str(maxEscena[0][0]))
+    print("....................................")
+    print('Por merge')
+    for i in range(m-1):
+        print("parte"+str(i+1)+" = "+str(partes[i][0]))
+    
 
 
 lista = []
