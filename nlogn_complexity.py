@@ -153,9 +153,9 @@ def maximun(arr):
     arreglo = []
     j = 0
     for i in range(1,len(arr)):
-        if maxi < arr[i]:
+        if arr[i] > maxi:
             maxi = arr[i]
-            arreglo.clear
+            arreglo.clear()
             arreglo.append(i)
         else:
             if maxi == arr[i]:
