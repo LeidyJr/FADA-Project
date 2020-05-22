@@ -212,7 +212,7 @@ n = int(lista[0][0])
 m = int(lista[1][0])
 k = int(lista[2][0])
 
-
+print(n,m,k)
 animales = [lista[3][i].replace('[','').replace(',','').replace(']','') for i in range(n)]
 grandezas = [int(lista[4][i].replace('[','').replace(',','').replace(']','')) for i in range(n)]
 
