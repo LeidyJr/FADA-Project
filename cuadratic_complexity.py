@@ -24,7 +24,35 @@ def  OrganizarEscenas(arr,low,high):
                 arr[j],arr[low] = arr[low],arr[j]
     
     for i in range(len(arrayConteo)):
-        output[arrayConteo[i]-1]+=1 
+        output[arrayConteo[i]-1]+=1
+        
+        
+def  Organizarpartesaperturas(arr):
+    for i in range(1,(m-1)*k):
+        if TamañoEscenarios(arr[i]) < TamañoEscenarios(arr[i-1]):
+            aux = arr[i]
+            arr[i] = arr[i-1]
+            arr[i-1] = aux
+        else:
+            if TamañoEscenarios(arr[i]) == TamañoEscenarios(arr[i-1]):
+                if DiccionarioZoo[arr[i][2]] < DiccionarioZoo[arr[i-1][2]]:
+                    aux = arr[i]
+                    arr[i] = arr[i-1]
+                    arr[i-1] = aux
+def tamañopartes(arr):
+    tamaño = 0
+    for p in range(k):  
+        for j in range(0,3):
+            tamaño+=DiccionarioZoo.get(arr[p][j])
+
+    return tamaño
+
+def  Organizarparte(arr):
+    for i in range(1,m-1):
+        if tamañopartes(arr[i]) < tamañopartes(arr[i-1]):
+            aux = arr[i]
+            arr[i] = arr[i-1]
+            arr[i-1] = aux
     
 
 def GrandezaMaxEscena(tamaño,arr):
@@ -45,22 +73,19 @@ def GrandezaMinEscena(tamaño,arr):
         minEscArr.clear()
         minEscArr.append(arr)
 
-def TamañoEscenas(arr):
-    tamaño = 0
+def TamañoEscenarios(arr):
+    tamaño = 0  
     global promedio
     global k
     try:
-        for j in range(0,2):
-            
+        for j in range(0,3):
             tamaño +=DiccionarioZoo.get(arr[j])
         GrandezaMaxEscena(tamaño,arr)
         GrandezaMinEscena(tamaño,arr)
     except:
         for p in range(len(arr)):
-            for j in range(0,2):
+            for j in range(0,3):
                 tamaño +=DiccionarioZoo.get(arr[p][j])
-            GrandezaMaxEscena(tamaño,arr[p])
-            GrandezaMinEscena(tamaño,arr[p])
     
     return tamaño
 
@@ -110,9 +135,9 @@ def Maximo(arr):
     arreglo = []
     j = 0
     for i in range(1,len(arr)):
-        if maxi < arr[i]:
+        if arr[i] > maxi:
             maxi = arr[i]
-            arreglo.clear
+            arreglo.clear()
             arreglo.append(i)
         else:
             if maxi == arr[i]:
